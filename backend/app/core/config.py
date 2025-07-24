@@ -5,6 +5,7 @@ from functools import lru_cache
 class Settings(BaseSettings):
     openai_api_key: str = Field("test-key", env="OPENAI_API_KEY")
     vector_store_path: str = "vectorstores"
+    frontend_url: str = Field("http://localhost:5173", env="FRONTEND_URL")
 
     class Config:
         env_file = ".env"

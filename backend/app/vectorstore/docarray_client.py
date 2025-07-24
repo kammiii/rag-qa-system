@@ -25,5 +25,11 @@ def retrieve_similar(question: str, k: int = 5) -> list[Document]:
 def get_context_for_question(question: str, k: int = 5) -> tuple[str, list[dict]]:
     docs = retrieve_similar(question, k)
     context = "\n\n".join([doc.page_content for doc in docs])
-    metadata = [doc.metadata for doc in docs]
+    metadata = [
+        {
+            "page_number": doc.metadata["page_number"],
+            "chunk": doc.page_content
+        }
+        for doc in docs
+    ]
     return context, metadata
