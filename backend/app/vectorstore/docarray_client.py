@@ -1,24 +1,19 @@
-from langchain.vectorstores import DocArrayInMemorySearch
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_community.vectorstores import DocArrayInMemorySearch
+from langchain_openai import OpenAIEmbeddings
 from langchain.docstore.document import Document
 from app.core.config import get_settings
 
 settings = get_settings()
 
-# Create a singleton-style instance
-embedding = OpenAIEmbeddings()
+embedding = OpenAIEmbeddings(openai_api_key=settings.openai_api_key)
 vectorstore = DocArrayInMemorySearch.from_texts([], embedding)
 
 def save_documents(chunks: list[dict], doc_id: str):
     global vectorstore
-
     docs = [
         Document(
             page_content=chunk["text"],
-            metadata={
-                "page_number": chunk["page_number"],
-                "doc_id": doc_id
-            }
+            metadata={"page_number": chunk["page_number"], "doc_id": doc_id}
         )
         for chunk in chunks
     ]
