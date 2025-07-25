@@ -1,15 +1,14 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 from functools import lru_cache
 
 class Settings(BaseSettings):
-    openai_api_key: str = Field("test-key", env="OPENAI_API_KEY")
+    openai_api_key: str = "test-key"
     vector_store_path: str = "vectorstores"
-    frontend_url: str = Field("http://localhost:5173", env="FRONTEND_URL")
+    frontend_url: str = "http://localhost:5173"
+    database_url: str
 
-    class Config:
-        env_file = ".env"
-        extra = "ignore"
+    model_config = SettingsConfigDict(env_file=".env")
 
 @lru_cache
 def get_settings():
