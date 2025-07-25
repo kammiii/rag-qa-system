@@ -1,17 +1,15 @@
-import { Grid } from '@chakra-ui/react';
+import { UploadBox } from "@/components/features/upload-box";
+import { ChatBox } from "@/components/features/chat-box";
+import { Container, Heading, VStack } from "@chakra-ui/react";
 
-import { CTASection } from './components/cta-section';
-import { SomeImage } from './components/some-image';
-import { SomeText } from './components/some-text';
-
-const Home = () => {
+export default function HomePage() {
   return (
-    <Grid gap={4}>
-      <SomeText />
-      <SomeImage />
-      <CTASection />
-    </Grid>
+    <Container py={10}>
+      <VStack spacing={10} align="center" w="100%">
+        <Heading textAlign="center">🧠 RAG Q&A Assistant</Heading>
+        <UploadBox />
+        <ChatBox />
+      </VStack>
+    </Container>
   );
-};
-
-export default Home;
+}
